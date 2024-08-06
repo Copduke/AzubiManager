@@ -4,11 +4,14 @@ import com.azubimanager.model.Azubi;
 import com.azubimanager.service.AzubiService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/azubi")
 public class AzubiController {
 
@@ -16,6 +19,13 @@ public class AzubiController {
 
     public AzubiController(AzubiService azubiService) {
         this.azubiService = azubiService;
+    }
+
+    @GetMapping
+    public String getAzubis(Model model) {
+        List<Azubi> azubis = azubiService.findAllAzubis();
+        model.addAttribute("azubis", azubis);
+        return "azubi";
     }
 
     @GetMapping("/all")
