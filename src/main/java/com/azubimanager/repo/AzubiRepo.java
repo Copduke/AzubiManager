@@ -7,7 +7,5 @@ import java.util.Optional;
 
 public interface AzubiRepo extends JpaRepository<Azubi, Long> {
 
-    void deleteAzubiById(Long id);
-
     Azubi findAzubiById(Long id);
 }

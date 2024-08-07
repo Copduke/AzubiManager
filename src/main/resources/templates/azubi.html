@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Azubi Manager</title>
     <link rel="icon" href="../img/icon.png" type="image/x-icon">
+    <script type="text/javascript" src="themeswitch.js" defer></script>
 </head>
 <body>
     <table>
@@ -23,18 +24,71 @@
             <td th:text="${azubi.phone}"></td>
             <td th:text="${azubi.department}"></td>
             <td th:text="${azubi.jobTitle}"></td>
+            <td>
+                <form th:action="@{/azubi/delete/{id}(id=${azubi.id})}" method="post" th:object="${azubi}">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="submit" value="Delete"/>
+                </form>
+                <a th:href="@{/azubi/update/{id}(id=${azubi.id})}">
+                    <button type="button">Update</button>
+                </a>
+            </td>
         </tr>
     </table>
+    <form th:action="@{/azubi/add}" method="post">
+        <label>
+            <span>Name:</span>
+            <input type="text" name="name" required>
+        </label>
+        <label>
+            <span>Phone:</span>
+            <input type="text" name="phone" required>
+        </label>
+        <label>
+            <span>Email:</span>
+            <input type="text" name="email" required>
+        </label>
+        <label>
+            <span>Department:</span>
+            <input type="text" name="department" required>
+        </label>
+        <label>
+            <span>jobTitle:</span>
+            <input type="text" name="jobTitle" required>
+        </label>
+        <input type="submit" value="Add">
+    </form>
 </body>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+    :root {
+        --primary-color: white;
+        --secondary-color: #343434;
+    }
     * {
-        background: #343434;
-        color: white;
+        background: var(--primary-color);
+        color: var(--secondary-color);
         font-family: "Open Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    html, body {
+        height: 100%;
+        width: 100%;
     }
     table, tr, th, td {
-        border: 1px solid #ffffff;
+        border: 1px solid var(--secondary-color);
+    }
+    .interaction-buttons {
+        border: solid 1px var(--secondary-color);
+    }
+    .interaction-buttons:hover {
+        background: var(--secondary-color);
+        color: var(--primary-color);
+    }
+    input {
+        display: block;
     }
 </style>
 </html>

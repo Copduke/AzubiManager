@@ -7,29 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class AzubiService {
+public interface AzubiService {
 
-    private final AzubiRepo azubiRepo;
+    Azubi addAzubi(Azubi azubi);
 
-    @Autowired
-    public AzubiService(AzubiRepo azubiRepo) {
-        this.azubiRepo = azubiRepo;
-    }
+    List<Azubi> findAllAzubis();
 
-    public Azubi addAzubi(Azubi azubi) {
-        return azubiRepo.save(azubi);
-    }
+    void saveAzubi(Azubi azubi);
 
-    public List<Azubi> findAllAzubis() {
-        return azubiRepo.findAll();
-    }
+    void deleteAzubiById(Long id);
 
-    public void deleteAzubi(Long id) {
-        azubiRepo.deleteAzubiById(id);
-    }
+    Azubi findAzubiById(Long id);
 
-    public Azubi findAzubiById(Long id) {
-        return azubiRepo.findAzubiById(id);
-    }
+    void updateAzubi(Azubi updatedAzubi);
 }

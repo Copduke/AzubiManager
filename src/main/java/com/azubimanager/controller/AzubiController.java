@@ -25,6 +25,7 @@ public class AzubiController {
     public String getAzubis(Model model) {
         List<Azubi> azubis = azubiService.findAllAzubis();
         model.addAttribute("azubis", azubis);
+        model.addAttribute("newAzubi", new Azubi());
         return "azubi";
     }
 
@@ -41,14 +42,33 @@ public class AzubiController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Azubi> addAzubi(@RequestBody Azubi azubi) {
-        Azubi newAzubi = azubiService.addAzubi(azubi);
-        return new ResponseEntity<>(newAzubi, HttpStatus.CREATED);
+    public String addAzubi(@ModelAttribute Azubi newAzubi, Model model) {
+        azubiService.saveAzubi(newAzubi);
+        return "redirect:/azubi";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteAzubi(@PathVariable("id") Long id) {
-        azubiService.deleteAzubi(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    //@PostMapping("/add")
+    /*public ResponseEntity<Azubi> addAzubi(@RequestBody Azubi azubi) {
+        Azubi newAzubi = azubiService.addAzubi(azubi);
+        return new ResponseEntity<>(newAzubi, HttpStatus.CREATED);
+    }*/
+
+    @PostMapping("/delete/{id}")
+    public String deleteAzubi(@PathVariable Long id) {
+        azubiService.deleteAzubiById(id);
+        return "redirect:/azubi";
+    }
+
+    @GetMapping("/update/{id}")
+    public String showUpdateForm(@PathVariable Long id, Model model) {
+        Azubi azubi = azubiService.findAzubiById(id);
+        model.addAttribute("azubi", azubi);
+        return "update";
+    }
+
+    @PostMapping("/update")
+    public String updateAzubi(@ModelAttribute Azubi azubi) {
+        azubiService.saveAzubi(azubi);
+        return "redirect:/azubi";
     }
 }

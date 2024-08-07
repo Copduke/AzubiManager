@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Azubi</title>
+</head>
+<body>
+<div class="form-container">
+    <form th:action="@{/azubi/update}" th:object="${azubi}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label>
+            <span>Name:</span>
+            <input type="text" th:field="*{name}" required>
+        </label>
+        <label>
+            <span>Phone:</span>
+            <input type="text" th:field="*{phone}" required>
+        </label>
+        <label>
+            <span>Email:</span>
+            <input type="text" th:field="*{email}" required>
+        </label>
+        <label>
+            <span>Department:</span>
+            <input type="text" th:field="*{department}" required>
+        </label>
+        <label>
+            <span>Title:</span>
+            <input type="text" th:field="*{jobTitle}" required>
+        </label>
+        <input type="submit" value="Update">
+    </form>
+</div>
+</body>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    html, body {
+        height: 100%;
+        width: 100%;
+    }
+    input {
+        display: block;
+    }
+</style>
+</html>
