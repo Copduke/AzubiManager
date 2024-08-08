@@ -131,8 +131,8 @@
         <td th:text="${azubi.name}"></td>
         <td th:text="${azubi.email}"></td>
         <td th:text="${azubi.phone}"></td>
-        <td th:text="${azubi.department}"></td>
-        <td th:text="${azubi.jobTitle}"></td>
+        <td th:text="${azubi.department != null ? azubi.Department.title : 'NULL'}"></td>
+        <td th:text="${azubi.jobTitle != null ? azubi.jobTitle.title : 'NULL'}"></td>
         <td>
             <form th:action="@{/azubi/delete/{id}(id=${azubi.id})}" method="post" th:object="${azubi}" style="display:inline;">
                 <input type="hidden" name="_method" value="delete"/>
@@ -164,7 +164,9 @@
     </label>
     <label>
         <span>Job Title:</span>
-        <input type="text" name="jobTitle" required>
+        <select name="jobTitleId" required>
+            <option th:each="jobTitle : ${jobTitles}" th:value="${jobTitle.id}" th:text="${jobTitle.title}"></option>
+        </select>
     </label>
     <input type="submit" value="Add">
 </form>

@@ -1,7 +1,11 @@
 package com.azubimanager.service;
 
 import com.azubimanager.model.Azubi;
+import com.azubimanager.model.Department;
+import com.azubimanager.model.JobTitle;
 import com.azubimanager.repo.AzubiRepo;
+import com.azubimanager.repo.DepartmentRepo;
+import com.azubimanager.repo.JobTitleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +16,10 @@ public class AzubiServiceImpl implements AzubiService{
 
     @Autowired
     private AzubiRepo azubiRepo;
+    @Autowired
+    private JobTitleRepo jobTitleRepo;
+    @Autowired
+    private DepartmentRepo departmentRepo;
 
     public Azubi addAzubi(Azubi azubi) {
         return azubiRepo.save(azubi);
@@ -29,6 +37,19 @@ public class AzubiServiceImpl implements AzubiService{
         return azubiRepo.findAzubiById(id);
     }
 
+    public List<JobTitle> findAllJobTitles() {
+        return jobTitleRepo.findAll();
+    }
+
+    @Override
+    public JobTitle findJobTitleById(Long id) {
+        return jobTitleRepo.findJobTitleById(id);
+    }
+
+    public Department findDepartmentById(Long id) {
+        return departmentRepo.findDepartmentById(id);
+    }
+
     public void saveAzubi(Azubi azubi) {
         azubiRepo.save(azubi);
     }
@@ -36,4 +57,5 @@ public class AzubiServiceImpl implements AzubiService{
     public void updateAzubi(Azubi azubi) {
         azubiRepo.save(azubi);
     }
+
 }

@@ -1,6 +1,8 @@
 package com.azubimanager.service;
 
 import com.azubimanager.model.Azubi;
+import com.azubimanager.model.Department;
+import com.azubimanager.model.JobTitle;
 import com.azubimanager.repo.AzubiRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +21,9 @@ public interface AzubiService {
 
     Azubi findAzubiById(Long id);
 
-    void updateAzubi(Azubi updatedAzubi);
+    List<JobTitle> findAllJobTitles();
+
+    JobTitle findJobTitleById(Long id);
+
+    Department findDepartmentById(Long id);
 }

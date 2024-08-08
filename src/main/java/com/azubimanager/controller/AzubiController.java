@@ -1,6 +1,7 @@
 package com.azubimanager.controller;
 
 import com.azubimanager.model.Azubi;
+import com.azubimanager.model.JobTitle;
 import com.azubimanager.service.AzubiService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,14 @@ public class AzubiController {
     }
 
     @GetMapping
-    public String getAzubis(Model model) {
+    public ModelAndView getAzubis() {
         List<Azubi> azubis = azubiService.findAllAzubis();
-        model.addAttribute("azubis", azubis);
-        model.addAttribute("newAzubi", new Azubi());
-        return "azubi";
+        List<JobTitle> jobTitles = azubiService.findAllJobTitles();
+        ModelAndView view = new ModelAndView("azubi");
+        view.addObject("azubis", azubis);
+        view.addObject("jobTitles", jobTitles);
+        // view.addObject("newAzubi", new Azubi());
+        return view;
     }
 
     @GetMapping("/all")
@@ -42,7 +46,9 @@ public class AzubiController {
     }
 
     @PostMapping("/add")
-    public String addAzubi(@ModelAttribute Azubi newAzubi, Model model) {
+    public String addAzubi(@ModelAttribute Azubi newAzubi, @RequestParam Long jobTitleId) {
+        JobTitle jobTitle = azubiService.findJobTitleById(jobTitleId);
+        newAzubi.setJobTitle(jobTitle);
         azubiService.saveAzubi(newAzubi);
         return "redirect:/azubi";
     }
@@ -62,12 +68,16 @@ public class AzubiController {
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable Long id, Model model) {
         Azubi azubi = azubiService.findAzubiById(id);
+        List<JobTitle> jobTitles = azubiService.findAllJobTitles();
         model.addAttribute("azubi", azubi);
+        model.addAttribute("jobTitles", jobTitles);
         return "update";
     }
 
     @PostMapping("/update")
-    public String updateAzubi(@ModelAttribute Azubi azubi) {
+    public String updateAzubi(@ModelAttribute Azubi azubi, @RequestParam Long jobTitleId) {
+        JobTitle jobTitle = azubiService.findJobTitleById(jobTitleId);
+        azubi.setJobTitle(jobTitle);
         azubiService.saveAzubi(azubi);
         return "redirect:/azubi";
     }

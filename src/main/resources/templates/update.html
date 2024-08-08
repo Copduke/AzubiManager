@@ -98,8 +98,10 @@
             <input type="text" th:field="*{department}" required>
         </label>
         <label>
-            <span>Title:</span>
-            <input type="text" th:field="*{jobTitle}" required>
+            <span>Job Title:</span>
+            <select name="jobTitleId" required>
+                <option th:each="jobTitle : ${jobTitles}" th:value="${jobTitle.id}" th:text="${jobTitle.title}"></option>
+            </select>
         </label>
         <input type="submit" value="Update">
     </form>
