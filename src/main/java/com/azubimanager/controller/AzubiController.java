@@ -50,14 +50,9 @@ public class AzubiController {
         JobTitle jobTitle = azubiService.findJobTitleById(jobTitleId);
         newAzubi.setJobTitle(jobTitle);
         azubiService.saveAzubi(newAzubi);
+        jobTitle.getAzubis().add(newAzubi);
         return "redirect:/azubi";
     }
-
-    //@PostMapping("/add")
-    /*public ResponseEntity<Azubi> addAzubi(@RequestBody Azubi azubi) {
-        Azubi newAzubi = azubiService.addAzubi(azubi);
-        return new ResponseEntity<>(newAzubi, HttpStatus.CREATED);
-    }*/
 
     @PostMapping("/delete/{id}")
     public String deleteAzubi(@PathVariable Long id) {
