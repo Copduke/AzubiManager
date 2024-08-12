@@ -23,7 +23,9 @@
         </label>
         <label>
             <span>Department:</span>
-            <input type="text" th:field="*{department}" required>
+            <select name="departmentId" required>
+                <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.title}"></option>
+            </select>
         </label>
         <label>
             <span>Job Title:</span>
