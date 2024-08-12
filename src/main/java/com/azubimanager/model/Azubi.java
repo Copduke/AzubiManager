@@ -1,34 +1,25 @@
 package com.azubimanager.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Azubi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id;
-    private String name;
-    private String email;
-    private String phone;
-    private String department;
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "job_title_id")
-    private JobTitle jobTitle;
-    private String imageUrl;
+    Long id;
 
-    public Azubi() {
-    }
+    String name;
+    String email;
+    String phone;
 
-    public Azubi(Long id, String name, String email, String phone, String department, JobTitle jobTitle, String imageUrl) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.department = department;
-        this.jobTitle = jobTitle;
-        this.imageUrl = imageUrl;
-    }
+    @ManyToOne
+    JobTitle jobTitle;
+    String imageUrl;
 }

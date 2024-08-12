@@ -1,6 +1,7 @@
 package com.azubimanager.service;
 
 import com.azubimanager.model.Azubi;
+import com.azubimanager.model.Department;
 import com.azubimanager.model.JobTitle;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public interface AzubiService {
     List<JobTitle> findAllJobTitles();
 
     JobTitle findJobTitleById(Long id);
+
+    Department findDepartmentById(Long id);
+
+    List<Department> findAllDepartments();
 }

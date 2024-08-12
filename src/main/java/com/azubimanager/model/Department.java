@@ -16,15 +16,16 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class JobTitle {
+public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String title;
-    @OneToMany
-    Set<Azubi> azubis;
-    //@ManyToMany(mappedBy = "jobTitles")
     @ManyToMany
-    Set<Department> departments;
+    //@JoinTable(
+    //        name = "jobtitle_department",
+    //        joinColumns = @JoinColumn(name = "department_id"),
+    //        inverseJoinColumns = @JoinColumn(name = "jobtitle_id"))
+    Set<JobTitle> jobTitles;
 }
